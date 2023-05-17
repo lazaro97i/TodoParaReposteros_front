@@ -1,8 +1,14 @@
 import './App.css'
+import { Provider } from 'react-redux'
+import { RouterProvider } from 'react-router-dom'
+import router from './router'
+import store from './store/store'
 
 function App() {
   return (
-    <h1 className='text-5xl font-bold text-p-color'>Todo para el repostero</h1>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   )
 }
 
