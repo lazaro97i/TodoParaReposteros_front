@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import productActions from '../store/product/actions'
+
+const { getProduct } = productActions
 
 const AdminPanel = () => {
 
+  const productStore = useSelector((store) => store.product)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getProduct())
+  }, [])
 
   return (
     <main className='flex flex-col justify-start items-center h-screen pt-40'>
@@ -25,21 +35,32 @@ const AdminPanel = () => {
         </button>
       </div>
       <table className='w-4/5 max-w-[800px]'>
-        <tr className='grid grid-cols-8 text-lg py-2 bg-myColor3-500 bg-opacity-20 rounded-t-md mb-2'>
-          <th className=' col-span-5 font-medium'>Producto</th>
-          <th className='font-medium'>Stock</th>
-          <th className='font-medium'>Precio/u</th>
-        </tr>
-        <tbody>
-          <tr className='grid grid-cols-8 border border-myColor3-400 min-h-[45px] content-center'>
-            <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 col-span-5 pl-2'>Chocolate arcor 1kg</td>
-            <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>75</td>
-            <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>$ 1500</td>
-            <td className='grid grid-cols-2 text-center h-full'>
-              <td className='border-r self-center border-myColor3-400 border-opacity-35'>up</td>
-              <td className='text-center self-center'>del</td>
-            </td>
+        <thead>
+          <tr className='grid grid-cols-8 text-lg py-2 bg-myColor3-500 bg-opacity-20 rounded-t-md mb-2'>
+            <th className=' col-span-5 font-medium'>Producto</th>
+            <th className='font-medium'>Stock</th>
+            <th className='font-medium'>Precio/u</th>
           </tr>
+        </thead>
+        <tbody>
+          {
+            productStore.products?.response?.map((p) => {
+              return (
+
+                <tr key={p.name} className='grid grid-cols-8 border border-myColor3-400 min-h-[45px] content-center'>
+                  <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 col-span-5 pl-2'>{p.name}</td>
+                  <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>75</td>
+                  <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>${p.price}</td>
+                  <tr className='grid grid-cols-2 text-center h-full'>
+                    <td className='border-r self-center border-myColor3-400 border-opacity-35'>up</td>
+                    <td className='text-center self-center'>del</td>
+                  </tr>
+                </tr>
+
+              )
+            })
+          }
+
         </tbody>
       </table>
     </main>
