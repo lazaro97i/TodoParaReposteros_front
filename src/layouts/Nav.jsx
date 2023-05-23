@@ -31,8 +31,8 @@ const Nav = () => {
             <img src="./icons/search.svg" alt="" />
           </label>
           <div className='flex flex-col gap-2 items-center justify-center'>
-            <Link className=' bg-myColor1-300 p-2 pr-4 rounded-xl shadow-myColor2-300 shadow-sm'>
-              <img onClick={handleCart} src="./icons/cart.svg" alt="cart" />
+            <Link onClick={handleCart} className=' bg-myColor1-300 p-2 pr-4 rounded-xl shadow-myColor2-300 shadow-sm'>
+              <img src="./icons/cart.svg" alt="cart" />
             </Link>
             <p className='text-myColor3-200 font-normal text-lg'>Mi carrito</p>
           </div>
