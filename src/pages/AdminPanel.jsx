@@ -46,21 +46,22 @@ const AdminPanel = () => {
           {
             productStore.products?.response?.map((p) => {
               return (
-
                 <tr key={p.name} className='grid grid-cols-8 border border-myColor3-400 min-h-[45px] content-center'>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 col-span-5 pl-2'>{p.name}</td>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>75</td>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>${p.price}</td>
                   <tr className='grid grid-cols-2 text-center h-full'>
-                    <td className='border-r self-center border-myColor3-400 border-opacity-35'>up</td>
-                    <td className='text-center self-center'>del</td>
+                    <td className='border-r self-center border-myColor3-400 border-opacity-35'>
+                      <svg className='inline' width={'32'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#efefef"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14 6L8 12V16H12L18 10M14 6L17 3L21 7L18 10M14 6L18 10M10 4L4 4L4 20L20 20V14" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </td>
+                    <td className='text-center self-center'>
+                    <svg className='inline' width={'32'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#dd3131"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#dd3131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 11V17" stroke="#dd3131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#dd3131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#dd3131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#dd3131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </td>
                   </tr>
                 </tr>
-
               )
             })
           }
-
         </tbody>
       </table>
     </main>
