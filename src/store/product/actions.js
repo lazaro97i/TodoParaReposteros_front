@@ -21,8 +21,26 @@ const getProduct = createAsyncThunk('products/getProduct', async() => {
   }
 })
 
+const createProduct = createAsyncThunk('products/createProduct', async(data) => {
+  console.log(data)
+  try{
+    const response = await axios.post(`${API_URL}/products`, data)
+    return{
+      product: response,
+      message: 'Product added successfully'
+    }
+  }catch(e){
+    console.log(e)
+    return{
+      product: null,
+      message: 'Add product failed :('
+    }
+  }
+})
+
 const productActions = {
-  getProduct
+  getProduct,
+  createProduct
 }
 
 export default productActions
