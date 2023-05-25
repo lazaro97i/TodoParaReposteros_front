@@ -15,14 +15,14 @@ const productReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getProduct.fulfilled, (state, action) => {
       let newState = {
-        products: action.payload.products.data,
+        products: action.payload.products,
         message: action.payload.message
       }
       return newState
     })
     .addCase(createProduct.fulfilled, (state, action) => {
       let newState = {
-        product: action.payload.product.data,
+        product: action.payload.product,
         message: action.payload.message
       }
       return newState

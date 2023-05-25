@@ -12,14 +12,15 @@ const AddProduct = () => {
   const inpName = useRef('')
   const inpDesc = useRef('')
   const inpPhoto = useRef('')
-  const inpPrice = useRef('')
-  const inpStock = useRef('')
+  const inpPrice = useRef(1)
+  const inpStock = useRef(1)
 
   const handleProduct = (e) => {
     const data = {
       name: inpName.current.value,
       description: inpDesc.current.value,
       photo: inpPhoto.current.value,
+      category_id: '646fc35e5d58cc4705ef9660',
       price: inpPrice.current.value,
       stock: inpStock.current.value
     }
@@ -48,11 +49,11 @@ const AddProduct = () => {
           <div className='w-full flex justify-between pt-5'>
             <label className='flex gap-5'>
               <p>Precio:</p>
-              <input ref={inpPrice} placeholder='$' min='0' className='w-24 focus:border-b-myColor2-100 outline-none bg-transparent border-b' type="number" name="price" id="price" />
+              <input ref={inpPrice} placeholder='$' min='1' className='w-24 focus:border-b-myColor2-100 outline-none bg-transparent border-b' type="number" name="price" id="price" />
             </label>
             <label className='flex gap-5'>
               <p>Stock:</p>
-              <input ref={inpStock} min='0' className='w-24 focus:border-b-myColor2-100 outline-none bg-transparent border-b' type="number" name="stock" id="stock" />
+              <input ref={inpStock} min='1' className='w-24 focus:border-b-myColor2-100 outline-none bg-transparent border-b' type="number" name="stock" id="stock" />
             </label>
           </div>
         </form>

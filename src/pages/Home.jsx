@@ -49,7 +49,7 @@ const Home = () => {
               {
                 categoryStore.categories?.response?.map((cat) => {
                   return (
-                    <ul key={cat.name}>
+                    <ul key={cat.name+1}>
                       <li className='opacity-none ml-3 list-disc pb-2'>
                         <Link className='hover:underline'>
                           {cat.name}

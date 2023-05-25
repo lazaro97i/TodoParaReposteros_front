@@ -26,7 +26,7 @@ const createProduct = createAsyncThunk('products/createProduct', async(data) => 
   try{
     const response = await axios.post(`${API_URL}/products`, data)
     return{
-      product: response,
+      product: response.data,
       message: 'Product added successfully'
     }
   }catch(e){
