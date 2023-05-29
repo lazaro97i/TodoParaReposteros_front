@@ -15,12 +15,18 @@ const AdminPanel = () => {
     dispatch(getProduct())
   }, [])
 
+  const handleModal = () => {
+    setAddProduct(!addProduct)
+  }
+
   return (
     <main className='flex flex-col justify-start items-center h-screen'>
-      <AddProduct />
+      {
+        addProduct ? <AddProduct visible={handleModal} /> : null
+      }
       <p className='text-4xl mb-20 mt-40'>TODO PARA EL REPOSTERO</p>
       <div className='w-4/5 max-w-[800px]'>
-        <button className='bg-lime-700 text-xl font-normal flex gap-2 text-myColor3-200 rounded-md py-2 px-4 mb-6 active:bg-lime-600'>
+        <button onClick={handleModal} className='bg-lime-700 text-xl font-normal flex gap-2 text-myColor3-200 rounded-md py-2 px-4 mb-6 active:bg-lime-600'>
           Agregar producto
           <svg width={'30px'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier"></g>
@@ -50,14 +56,14 @@ const AdminPanel = () => {
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 col-span-5 pl-2'>{p.name}</td>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>75</td>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>${p.price}</td>
-                  <tr className='grid grid-cols-2 text-center h-full'>
-                    <td className='border-r self-center border-myColor3-400 border-opacity-35'>
+                  <td className='border-r self-center border-myColor3-400 border-opacity-35 grid grid-cols-2'>
+                    <div className='flex justify-center'>
                       <svg className='inline cursor-pointer' width={'32'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#efefef"><g id="SVGRepo_bgCarrier"></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M14 6L8 12V16H12L18 10M14 6L17 3L21 7L18 10M14 6L18 10M10 4L4 4L4 20L20 20V14" stroke="#000"></path> </g></svg>
-                    </td>
-                    <td className='text-center self-center'>
-                    <svg className='inline cursor-pointer' width={'32'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#dd3131"><g id="SVGRepo_bgCarrier"></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#dd3131" ></path> <path d="M14 11V17" stroke="#dd3131" ></path> <path d="M4 7H20" stroke="#dd3131" ></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#dd3131" ></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#dd3131" ></path> </g></svg>
-                    </td>
-                  </tr>
+                    </div>
+                    <div className='flex justify-center'>
+                      <svg className='inline cursor-pointer' width={'32'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#dd3131"><g id="SVGRepo_bgCarrier"></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#dd3131" ></path> <path d="M14 11V17" stroke="#dd3131" ></path> <path d="M4 7H20" stroke="#dd3131" ></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#dd3131" ></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#dd3131" ></path> </g></svg>
+                    </div>
+                  </td>
                 </tr>
               )
             })

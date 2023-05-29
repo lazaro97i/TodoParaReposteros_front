@@ -4,7 +4,7 @@ import productActions from '../store/product/actions'
 
 const { createProduct } = productActions
 
-const AddProduct = () => {
+const AddProduct = ({visible}) => {
 
   const [newImg, setNewImg] = useState('')
   const dispatch = useDispatch()
@@ -27,15 +27,22 @@ const AddProduct = () => {
     dispatch(createProduct(data))
   }
 
+  const handlePhoto = () => {
+    setNewImg(inpPhoto.current.value)
+  }
+  const handleModal = () => {
+    visible()
+  }
+
   return (
-    <div className='w-screen h-screen bg-black absolute bg-opacity-70 flex items-center justify-center'>
-      <img className='w-[50px] absolute top-[30px] right-[30px] cursor-pointer' src="./icons/cancel.svg" alt="" />
-      <div className='relative bg-myColor3-300 w-3/5 flex flex-col items-center justify-center  rounded-md min-w-[690px] max-w-[960px]'>
+    <div className='w-screen h-screen bg-black absolute bg-opacity-70 flex items-center justify-center z-0'>
+      <img onClick={handleModal} className='w-[50px] absolute top-[30px] right-[30px] cursor-pointer' src="./icons/cancel.svg" alt="" />
+      <div className='relative bg-myColor3-300 w-3/5 flex flex-col items-center justify-center  rounded-md min-w-[690px] max-w-[960px] z-10'>
         <p className='py-10 text-3xl font-normal'>Agregar nuevo producto</p>
-        <img className='w-[200px] h-[180px]' src="" alt="" />
+        <img className='w-[200px] h-[180px] rounded-md' src={newImg} alt="" />
         <form action="get" className='grid grid-cols-1 w-3/6 gap-6 py-12'>
           <label className='flex justify-between gap-5'>
-            <p>Name:</p>
+            <p>Nombre:</p>
             <input ref={inpName} className='focus:border-b-myColor2-100 w-[380px] outline-none bg-transparent border-b border-1-myColor3-400' type="text" name="name" id="name" />
           </label>
           <label className='flex justify-between gap-5'>
@@ -44,7 +51,7 @@ const AddProduct = () => {
           </label>
           <label className='flex justify-between gap-5'>
             <p>Foto:</p>
-            <input ref={inpPhoto} className=' w-[380px] focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="url" name="photo" id="photo" />
+            <input onChange={handlePhoto} ref={inpPhoto} className=' w-[380px] focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="url" name="photo" id="photo" />
           </label>
           <div className='w-full flex justify-between pt-5'>
             <label className='flex gap-5'>
@@ -59,10 +66,10 @@ const AddProduct = () => {
         </form>
         <div className='flex w-4/5 justify-evenly pb-20'>
           <button onClick={handleProduct} className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600'>Agregar</button>
-          <button className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700'>Cancelar</button>
+          <button onClick={handleModal} className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700'>Cancelar</button>
         </div>
       </div>
-    </div>  
+    </div>
   )
 }
 
