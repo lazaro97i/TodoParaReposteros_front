@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useRef, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import productActions from '../store/product/actions'
+import { Toaster, toast } from 'react-hot-toast'
 
 const { createProduct } = productActions
 
@@ -8,6 +9,7 @@ const { createProduct } = productActions
 
 const AddProduct = ({ visible }) => {
 
+  const productStore = useSelector((store) => store.product)
   const [newImg, setNewImg] = useState('')
   const [prod, setProd] = useState(false)
   const dispatch = useDispatch()
@@ -18,7 +20,18 @@ const AddProduct = ({ visible }) => {
   const inpPrice = useRef(1)
   const inpStock = useRef(1)
 
-  const handleProduct = (e) => {
+  const successAlert = () => {
+    toast.success('Producto agregado correctamente 👍', {
+      autoClose: 5000,
+    })
+  }
+  const errorAlert = () => {
+    productStore?.message?.message?.map((err) => {
+      toast.error(err.message, { autoClose: 5000 })
+    })
+  }
+
+  const handleProduct = () => {
     const data = {
       name: inpName.current.value,
       description: inpDesc.current.value,
@@ -29,6 +42,14 @@ const AddProduct = ({ visible }) => {
     }
     dispatch(createProduct(data))
   }
+
+  useEffect(() => {
+    if (productStore?.product?.success === true) {
+      successAlert()
+    } else{
+      errorAlert()
+    }
+  }, [productStore])
 
   const handlePhoto = () => {
     setNewImg(inpPhoto.current.value)
@@ -44,15 +65,17 @@ const AddProduct = ({ visible }) => {
           <p className='font-medium text-xl'>CONFIRMAR PRODUCTO ?</p>
           <form action="" className='flex w-full justify-evenly'>
             <input onClick={handleProduct} className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600 cursor-pointer' type="button" value="Confirmar" />
-            <button onClick={()=>setProd(!prod)} className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700'>Cancelar</button>
+            <button onClick={() => setProd(!prod)} className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700'>Cancelar</button>
           </form>
         </div>
       </div>
     )
   }
 
+
   return (
     <div className='w-screen h-screen bg-black absolute bg-opacity-70 flex items-center justify-center z-0'>
+      <Toaster />
       <img onClick={handleModal} className='w-[50px] absolute top-[30px] right-[30px] cursor-pointer' src="./icons/cancel.svg" alt="" />
       <div className='relative bg-myColor3-300 w-3/5 flex flex-col items-center justify-center  rounded-md min-w-[690px] max-w-[960px] z-10'>
         <p className='py-10 text-3xl font-normal'>Agregar nuevo producto</p>
@@ -81,7 +104,7 @@ const AddProduct = ({ visible }) => {
             </label>
           </div>
           <div className='flex justify-evenly w-full pt-10'>
-            <input onClick={()=>setProd(!prod)} className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600 cursor-pointer' type="button" value="Agregar" />
+            <input onClick={() => setProd(!prod)} className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600 cursor-pointer' type="button" value="Agregar" />
             <button onClick={handleModal} className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700'>Cancelar</button>
           </div>
         </form>

@@ -25,7 +25,9 @@ const createProduct = createAsyncThunk('products/createProduct', async(data) => 
 
   try{
     const response = await axios.post(`${API_URL}/products`, data)
-    location.reload()
+    setTimeout(()=>{
+      location.reload()
+    },2000)
     return{
       product: response.data,
       message: 'Product added successfully',
@@ -34,7 +36,8 @@ const createProduct = createAsyncThunk('products/createProduct', async(data) => 
     console.log(e)
     return{
       product: null,
-      message: 'Add product failed :('
+      message: e.response.data,
+      status: e.response.status
     }
   }
 })
@@ -43,7 +46,9 @@ const deleteProduct = createAsyncThunk('products/deleteProduct', async(id) => {
 
   try{
     const response = await axios.delete(`${API_URL}/products`, {data:{_id: id}})
-    location.reload()
+    setTimeout(()=>{
+      location.reload()
+    },2000)
     return{
       product: response.data,
       message: 'Product deleted successfully'

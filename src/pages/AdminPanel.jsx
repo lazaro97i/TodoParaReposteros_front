@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from '../store/product/actions'
 import AddProduct from '../components/AddProduct'
+import {Toaster, toast } from 'react-hot-toast'
+
 
 const { getProduct, deleteProduct } = productActions
 
@@ -13,6 +15,12 @@ const AdminPanel = () => {
   const [idProduct, setIdProduct] = useState(null)
   const [nameProduct, setNameProduct] = useState(null)
 
+
+  const successAlert = () => {
+    toast.success('Producto eliminado correctamente 👍', {
+      autoClose: 5000,
+    })
+  }
 
   useEffect(() => {
     dispatch(getProduct())
@@ -31,23 +39,31 @@ const AdminPanel = () => {
   }
 
   const ModalDelete = () => {
-    return(
+    return (
       <div className='absolute bg-black w-full h-screen bg-opacity-70 flex items-center justify-center'>
         <div className='relative w-[700px] h-[350px] bg-myColor3-300 flex flex-col items-center justify-center gap-5 rounded-md'>
           <p className='text-2xl font-light pb-8'>¿Seguro quiere eliminar el siguiente producto?:</p>
           <p className='pb-10 text-2xl text-red-800 font-medium'>{nameProduct}</p>
           <div className='w-full flex justify-evenly'>
-            <input className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600 cursor-pointer' type="button" value="Confirmar" onClick={confirmDelete}/>
-            <input className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700 cursor-pointer' type="button" value="Cancelar" onClick={()=>setNameProduct(null)}/>
+            <input className='font-normal text-lg py-2 px-6 bg-lime-700 text-myColor3-200 rounded-md active:bg-lime-600 cursor-pointer' type="button" value="Confirmar" onClick={confirmDelete} />
+            <input className='font-normal text-lg py-2 px-6 bg-red-800 text-myColor3-200 rounded-md active:bg-red-700 cursor-pointer' type="button" value="Cancelar" onClick={() => setNameProduct(null)} />
           </div>
         </div>
       </div>
     )
   }
 
+  useEffect(()=>{ 
+    if(productStore?.product?.response === 'deleted'){
+        successAlert()
+    }else{
+        null
+    }
+  }, [confirmDelete])
 
   return (
     <main className='flex flex-col justify-start items-center h-screen'>
+      <Toaster />
       {
         addProduct ? <AddProduct visible={handleModal} /> : null
       }
@@ -91,7 +107,7 @@ const AdminPanel = () => {
                       <img src="./icons/edit-product.svg" alt="" />
                     </div>
                     <div className='flex justify-center'>
-                      <img className='cursor-pointer' src="./icons/delete.svg" alt="" onClick={deleteProd} id={p._id} name={p.name}/>
+                      <img className='cursor-pointer' src="./icons/delete.svg" alt="" onClick={deleteProd} id={p._id} name={p.name} />
                     </div>
                   </td>
                 </tr>

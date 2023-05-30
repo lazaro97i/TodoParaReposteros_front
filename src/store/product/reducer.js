@@ -9,7 +9,8 @@ const { getProduct,
 const initialState = {
   product: [],
   products: [],
-  message: []
+  message: [],
+  status: 0
 }
 
 const productReducer = createReducer(initialState, (builder) => {
@@ -24,7 +25,8 @@ const productReducer = createReducer(initialState, (builder) => {
     .addCase(createProduct.fulfilled, (state, action) => {
       let newState = {
         product: action.payload.product,
-        message: action.payload.message
+        message: action.payload.message,
+        status: action.payload.status
       }
       return newState
     })
