@@ -22,12 +22,13 @@ const getProduct = createAsyncThunk('products/getProduct', async() => {
 })
 
 const createProduct = createAsyncThunk('products/createProduct', async(data) => {
-  console.log(data)
+
   try{
     const response = await axios.post(`${API_URL}/products`, data)
+    location.reload()
     return{
       product: response.data,
-      message: 'Product added successfully'
+      message: 'Product added successfully',
     }
   }catch(e){
     console.log(e)
@@ -38,9 +39,28 @@ const createProduct = createAsyncThunk('products/createProduct', async(data) => 
   }
 })
 
+const deleteProduct = createAsyncThunk('products/deleteProduct', async(id) => {
+
+  try{
+    const response = await axios.delete(`${API_URL}/products`, {data:{_id: id}})
+    location.reload()
+    return{
+      product: response.data,
+      message: 'Product deleted successfully'
+    }
+  }catch(e){
+    console.log(e)
+    return{
+      product: null,
+      message: 'Product not found :('
+    }
+  }
+})
+
 const productActions = {
   getProduct,
-  createProduct
+  createProduct,
+  deleteProduct
 }
 
 export default productActions

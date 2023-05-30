@@ -2,7 +2,8 @@ import { createReducer } from "@reduxjs/toolkit"
 import productActions from "./actions"
 
 const { getProduct, 
-        createProduct 
+        createProduct,
+        deleteProduct
       } = productActions
 
 const initialState = {
@@ -21,6 +22,13 @@ const productReducer = createReducer(initialState, (builder) => {
       return newState
     })
     .addCase(createProduct.fulfilled, (state, action) => {
+      let newState = {
+        product: action.payload.product,
+        message: action.payload.message
+      }
+      return newState
+    })
+    .addCase(deleteProduct.fulfilled, (state, action) => {
       let newState = {
         product: action.payload.product,
         message: action.payload.message
