@@ -1,20 +1,25 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from '../store/product/actions'
+import categoryActions from '../store/category/actions'
 import { Toaster, toast } from 'react-hot-toast'
 
 const { createProduct } = productActions
+const { getCategories } = categoryActions
 
 
 
 const AddProduct = ({ visible }) => {
 
   const productStore = useSelector((store) => store.product)
+  const categoryStore = useSelector((store) => store.category)
   const [newImg, setNewImg] = useState('')
   const [prod, setProd] = useState(false)
+  const [category, setCategory] = useState(false)
   const dispatch = useDispatch()
 
   const inpName = useRef('')
+  let inpCategory = useRef('')
   const inpDesc = useRef('')
   const inpPhoto = useRef('')
   const inpPrice = useRef(1)
@@ -31,12 +36,16 @@ const AddProduct = ({ visible }) => {
     })
   }
 
+  useEffect(()=> {
+    dispatch(getCategories())
+  },[])
+
   const handleProduct = () => {
     const data = {
       name: inpName.current.value,
       description: inpDesc.current.value,
       photo: inpPhoto.current.value,
-      category_id: '646fc35e5d58cc4705ef9660',
+      category_id: category,
       price: inpPrice.current.value,
       stock: inpStock.current.value
     }
@@ -80,18 +89,29 @@ const AddProduct = ({ visible }) => {
       <div className='relative bg-myColor3-300 w-3/5 flex flex-col items-center justify-center  rounded-md min-w-[690px] max-w-[960px] z-10'>
         <p className='py-10 text-3xl font-normal'>Agregar nuevo producto</p>
         <img className='w-[200px] h-[180px] rounded-md' src={newImg} alt="" />
-        <form method="get" className='grid grid-cols-1 w-3/6 gap-6 py-12'>
+        <form method="get" className='flex flex-col w-3/6 gap-6 py-12'>
           <label className='flex justify-between gap-5'>
             <p>Nombre:</p>
-            <input ref={inpName} className='focus:border-b-myColor2-100 w-[380px] outline-none bg-transparent border-b border-1-myColor3-400' type="text" name="name" id="name" />
+            <input ref={inpName} className='focus:border-b-myColor2-100 w-full outline-none bg-transparent border-b border-1-myColor3-400' type="text" name="name" id="name" />
+          </label>
+          <label className='flex justify-between gap-5'>
+            <p>Categoria:</p>
+            <select onChange={(e)=> setCategory(e.target.value)} className='w-full bg-transparent border-b border-1-myColor3-400 outline-none' name="category" id="category">
+              <option ref={null} value={''}>Selccione una categoria</option>
+              {
+                categoryStore?.categories?.response?.map((cat)=>(
+                    <option key={cat._id} value={cat._id}>{cat.name}</option>
+                ))
+              }
+            </select>
           </label>
           <label className='flex justify-between gap-5'>
             <p>Descripcion:</p>
-            <input ref={inpDesc} className=' w-[380px] focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="text" name="desc" id="desc" />
+            <input ref={inpDesc} className=' w-full focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="text" name="desc" id="desc" />
           </label>
           <label className='flex justify-between gap-5'>
-            <p>Foto:</p>
-            <input onChange={handlePhoto} ref={inpPhoto} className=' w-[380px] focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="url" name="photo" id="photo" />
+            <p className=' block w-[100px]'>Foto URL:</p>
+            <input onChange={handlePhoto} ref={inpPhoto} className=' w-full focus:border-b-myColor2-100 outline-none bg-transparent border-b border-1-myColor3-400' type="url" name="photo" id="photo" />
           </label>
           <div className='w-full flex justify-between pt-5'>
             <label className='flex gap-5'>

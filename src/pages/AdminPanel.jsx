@@ -71,7 +71,7 @@ const AdminPanel = () => {
         nameProduct ? <ModalDelete /> : null
       }
       <p className='text-4xl mb-20 mt-40'>TODO PARA EL REPOSTERO</p>
-      <div className='w-4/5 max-w-[800px]'>
+      <div className='w-4/5 max-w-[800px] flex justify-between'>
         <button onClick={handleModal} className='bg-lime-700 text-xl font-normal flex gap-2 text-myColor3-200 rounded-md py-2 px-4 mb-6 active:bg-lime-600'>
           Agregar producto
           <svg width={'30px'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,6 +85,7 @@ const AdminPanel = () => {
             </g>
           </svg>
         </button>
+        <button onClick={()=>dispatch(getProduct())}><img className='w-[32px]' src="./icons/refresh.svg" alt="" /></button>
       </div>
       <table className='w-4/5 max-w-[800px]'>
         <thead>
