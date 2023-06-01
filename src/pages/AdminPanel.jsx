@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from '../store/product/actions'
 import AddProduct from '../components/AddProduct'
+import EditProduct from '../components/EditProduct'
 import {Toaster, toast } from 'react-hot-toast'
 
 
@@ -30,7 +31,7 @@ const AdminPanel = () => {
     setAddProduct(!addProduct)
   }
 
-  const deleteProd = (e) => {
+  const selectProduct = (e) => {
     setIdProduct(e.target.id)
     setNameProduct(e.target.name)
   }
@@ -70,6 +71,7 @@ const AdminPanel = () => {
       {
         nameProduct ? <ModalDelete /> : null
       }
+      <EditProduct id={idProduct} />
       <p className='text-4xl mb-20 mt-40'>TODO PARA EL REPOSTERO</p>
       <div className='w-4/5 max-w-[800px] flex justify-between'>
         <button onClick={handleModal} className='bg-lime-700 text-xl font-normal flex gap-2 text-myColor3-200 rounded-md py-2 px-4 mb-6 active:bg-lime-600'>
@@ -101,14 +103,14 @@ const AdminPanel = () => {
               return (
                 <tr key={p.name} className='grid grid-cols-8 border border-myColor3-400 min-h-[45px] content-center'>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 col-span-5 pl-2'>{p.name}</td>
-                  <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>75</td>
+                  <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>{p.stock}</td>
                   <td className='self-center border-r h-full border-myColor3-400 border-opacity-35 text-center'>${p.price}</td>
                   <td className='border-r self-center border-myColor3-400 border-opacity-35 grid grid-cols-2'>
                     <div className='flex justify-center'>
-                      <img src="./icons/edit-product.svg" alt="" />
+                      <img className='cursor-pointer' src="./icons/edit-product.svg" alt="" onClick={selectProduct} id={p._id}/>
                     </div>
                     <div className='flex justify-center'>
-                      <img className='cursor-pointer' src="./icons/delete.svg" alt="" onClick={deleteProd} id={p._id} name={p.name} />
+                      <img className='cursor-pointer' src="./icons/delete.svg" alt="" onClick={selectProduct} id={p._id} name={p.name} />
                     </div>
                   </td>
                 </tr>

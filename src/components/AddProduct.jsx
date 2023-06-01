@@ -19,7 +19,6 @@ const AddProduct = ({ visible }) => {
   const dispatch = useDispatch()
 
   const inpName = useRef('')
-  let inpCategory = useRef('')
   const inpDesc = useRef('')
   const inpPhoto = useRef('')
   const inpPrice = useRef(1)
